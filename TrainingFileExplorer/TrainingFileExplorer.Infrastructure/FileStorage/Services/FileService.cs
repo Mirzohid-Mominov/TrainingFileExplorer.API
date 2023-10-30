@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrainingFileExplorer.Aplication.FileStorage.Brokers;
 using TrainingFileExplorer.Aplication.FileStorage.Models.Filtering;
+using TrainingFileExplorer.Aplication.FileStorage.Models.Settings;
 using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
 using TrainingFileExplorer.Aplication.FileStorage.Services;
 
@@ -13,10 +14,12 @@ namespace TrainingFileExplorer.Infrastructure.FileStorage.Services
 {
     public class FileService : IFileService
     {
+        private readonly FileFilterSettings _filterSettings;
         private readonly IFileBroker _broker;
 
-        public FileService(IFileBroker broker)
+        public FileService(IFileBroker broker, FileFilterSettings fileFilterSettings)
         {
+            _filterSettings = fileFilterSettings;
             _broker = broker;
         }
 
@@ -33,6 +36,14 @@ namespace TrainingFileExplorer.Infrastructure.FileStorage.Services
             });
 
             return files;
+        }
+
+        public StorageFileType GetFileType(string filePath)
+        {
+            var fileExtension = Path.GetExtension(filePath).TrimStart('.');
+            var matchedFileType = _filterSettings.FileExtensions.FirstOrDefault(extension => extension.Extensions.Contains(fileExtension));
+
+            return matchedFileType?.FileType ?? StorageFileType.Other;
         }
     }
 }

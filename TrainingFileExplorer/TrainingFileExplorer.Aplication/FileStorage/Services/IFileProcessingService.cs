@@ -8,11 +8,8 @@ using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
 
 namespace TrainingFileExplorer.Aplication.FileStorage.Services
 {
-    public interface IFileService
+    public interface IFileProcessingService
     {
-        ValueTask<IList<StorageFile>> GetFilesByPathAsync(IEnumerable<string> filesPath);
-
-        ValueTask<StorageFile> GetFileByPathAsync(string filePath);
-        StorageFileType GetFileType(string filePath);
+        ValueTask<IList<StorageFile>> GetFilterAsync(StorageFileFilterModel filterModel);
     }
 }

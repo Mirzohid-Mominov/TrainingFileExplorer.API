@@ -29,8 +29,9 @@ builder.Services.AddScoped<IDriveService, DriveService>();
 builder.Services.AddScoped<IDirectoryBroker, DirectoryBroker>();
 builder.Services.AddScoped<IFileBroker, FileBroker>();
 builder.Services.AddScoped<IDriveBroker, DriveBroker>();
+builder.Services.AddScoped<IFileProcessingService, FileProcessingService>();
 
-//builder.Services.Configure<FileExtensions>(builder.Configuration.GetSection(nameof(FileExtensions)));
+builder.Services.Configure<FileExtensions>(builder.Configuration.GetSection(nameof(FileExtensions)));
 
 var app = builder.Build();
 
