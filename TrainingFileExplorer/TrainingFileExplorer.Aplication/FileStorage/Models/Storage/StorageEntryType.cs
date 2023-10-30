@@ -9,6 +9,7 @@ namespace TrainingFileExplorer.Aplication.FileStorage.Models.Storage
     public enum StorageEntryType
     {
         Directory,
-        File
+        File,
+        Drive
     }
 }

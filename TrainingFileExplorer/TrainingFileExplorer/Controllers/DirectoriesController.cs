@@ -5,7 +5,7 @@ using TrainingFileExplorer.Infrastructure.FileStorage.Services;
 namespace TrainingFileExplorer.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller")]
+[Route("api/[controller]")]
 public class DirectoriesController : ControllerBase
 {
     private readonly IDirectoryProcessingService _directoryProcessingService;
