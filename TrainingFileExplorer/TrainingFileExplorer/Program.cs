@@ -25,8 +25,10 @@ builder.Services.AddAutoMapper(assemblies);
 builder.Services.AddScoped<IDirectoryProcessingService, DirectoryProcessingService>();
 builder.Services.AddScoped<IDirectoryService, DirectoryService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IDriveService, DriveService>();
 builder.Services.AddScoped<IDirectoryBroker, DirectoryBroker>();
 builder.Services.AddScoped<IFileBroker, FileBroker>();
+builder.Services.AddScoped<IDriveBroker, DriveBroker>();
 
 //builder.Services.Configure<FileExtensions>(builder.Configuration.GetSection(nameof(FileExtensions)));
 

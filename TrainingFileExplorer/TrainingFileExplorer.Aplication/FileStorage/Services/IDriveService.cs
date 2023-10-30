@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
 
-namespace TrainingFileExplorer.Aplication.FileStorage.Brokers
+namespace TrainingFileExplorer.Aplication.FileStorage.Services
 {
-    public interface IDriveBroker
+    public interface IDriveService
     {
-        IEnumerable<StorageDrive> Get();
+        ValueTask<IList<StorageDrive>> GetAsync();
     }
 }
