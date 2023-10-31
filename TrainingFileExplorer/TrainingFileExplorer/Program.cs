@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
-using ServiceStack;
 using System.Reflection;
 using TrainingFileExplorer.Aplication.FileStorage.Brokers;
+using TrainingFileExplorer.Aplication.FileStorage.Models.Settings;
 using TrainingFileExplorer.Aplication.FileStorage.Services;
 using TrainingFileExplorer.Infrastructure.FileStorage.Brokers;
 using TrainingFileExplorer.Infrastructure.FileStorage.Services;
@@ -22,7 +22,8 @@ var assemblies = Assembly
 assemblies.Add(Assembly.GetExecutingAssembly());
 builder.Services.AddAutoMapper(assemblies);
 
-builder.Services.AddScoped<IDirectoryProcessingService, DirectoryProcessingService>();
+builder.Services.Configure<FileFilterSettings>(builder.Configuration.GetSection(nameof(FileFilterSettings)));
+
 builder.Services.AddScoped<IDirectoryService, DirectoryService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IDriveService, DriveService>();
@@ -30,8 +31,7 @@ builder.Services.AddScoped<IDirectoryBroker, DirectoryBroker>();
 builder.Services.AddScoped<IFileBroker, FileBroker>();
 builder.Services.AddScoped<IDriveBroker, DriveBroker>();
 builder.Services.AddScoped<IFileProcessingService, FileProcessingService>();
-
-builder.Services.Configure<FileExtensions>(builder.Configuration.GetSection(nameof(FileExtensions)));
+builder.Services.AddScoped<IDirectoryProcessingService, DirectoryProcessingService>();
 
 var app = builder.Build();
 

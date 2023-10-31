@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace TrainingFileExplorer.Infrastructure.FileStorage.Services
         private readonly FileFilterSettings _filterSettings;
         private readonly IFileBroker _broker;
 
-        public FileService(IFileBroker broker, FileFilterSettings fileFilterSettings)
+        public FileService(IFileBroker broker, IOptions<FileFilterSettings> fileFilterSettings)
         {
-            _filterSettings = fileFilterSettings;
+            _filterSettings = fileFilterSettings.Value;
             _broker = broker;
         }
 

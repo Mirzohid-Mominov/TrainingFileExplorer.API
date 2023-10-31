@@ -18,7 +18,7 @@ namespace TrainingFileExplorer.Api.Controllers
         }
 
         [HttpGet]
-        public async ValueTask<IActionResult> GetFilesAsync([FromServices] StorageFileFilterModel filterModel)
+        public async ValueTask<IActionResult> GetFilesAsync([FromBody] StorageFileFilterModel filterModel)
         {
             var files = await _fileProcessingService.GetFilterAsync(filterModel);
 
