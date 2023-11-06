@@ -17,12 +17,20 @@ namespace TrainingFileExplorer.Api.Controllers
             _fileProcessingService = fileProcessingService;
         }
 
-        [HttpGet]
+        [HttpGet("root/files/filter")]
+        public async ValueTask<IActionResult> GetFilesSummaryAsync()
+        {
+            var data = await _fileProcessingService.Get
+        }
+
+
+        [HttpGet("root/files/by-filter")]
         public async ValueTask<IActionResult> GetFilesAsync([FromBody] StorageFileFilterModel filterModel)
         {
-            var files = await _fileProcessingService.GetFilterAsync(filterModel);
+            var files = await _fileProcessingService.GetByFilterAsync(filterModel);
 
             return files.Any() ? Ok(files) : NotFound(files);
         }
+
     }
 }

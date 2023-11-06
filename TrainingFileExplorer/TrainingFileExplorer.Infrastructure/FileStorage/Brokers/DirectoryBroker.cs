@@ -17,16 +17,16 @@ namespace TrainingFileExplorer.Infrastructure.FileStorage.Brokers
         {
             _mapper = mapper;
         }
-        public bool ExistsAsync(string directoriesPath) => Directory.Exists(directoriesPath);
-       
-        public StorageDirectory GetByPathAsync(string directoriesPath) => _mapper.Map<StorageDirectory>(new DirectoryInfo(directoriesPath));
+        
+        public IEnumerable<string> GetDirectoriesPath(string directoriesPath) => Directory.EnumerateDirectories(directoriesPath);
+        
+        public IEnumerable<string> GetFilesPath(string directoriesPath) => Directory.EnumerateFiles(directoriesPath);
         
         public IEnumerable<StorageDirectory> GetDirectoriesAsync(string directoriesPath) => GetDirectoriesPath(directoriesPath)
             .Select(path => _mapper.Map<StorageDirectory>(new DirectoryInfo(path)));
         
-        public IEnumerable<string> GetDirectoriesPath(string directoriesPath) => Directory.EnumerateDirectories(directoriesPath);
+        public StorageDirectory GetByPathAsync(string directoriesPath) => _mapper.Map<StorageDirectory>(new DirectoryInfo(directoriesPath));
 
-        public IEnumerable<string> GetFilesPath(string directoriesPath) => Directory.EnumerateFiles(directoriesPath);
-
+        public bool ExistsAsync(string directoriesPath) => Directory.Exists(directoriesPath);
     }
 }

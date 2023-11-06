@@ -20,4 +20,10 @@ public class DirectoriesController : ControllerBase
     {
         return Ok(await _directoryProcessingService.GetEntriesAsync(webHostEnvironment.WebRootPath));
     }
+    
+    [HttpGet("")]
+    public async ValueTask<IActionResult> GetRootEntriesByPathAsync([FromServices] IWebHostEnvironment webHostEnvironment)
+    {
+        return Ok(await _directoryProcessingService.GetEntriesAsync(webHostEnvironment.WebRootPath));
+    }
 }

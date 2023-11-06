@@ -9,10 +9,14 @@ namespace TrainingFileExplorer.Aplication.FileStorage.Brokers
 {
     public interface IDirectoryBroker
     {
-        IEnumerable<string> GetDirectoriesPath(string directoriesPath);
-        IEnumerable<string> GetFilesPath(string directoriesPath);
-        IEnumerable<StorageDirectory> GetDirectoriesAsync(string directoriesPath);
-        StorageDirectory GetByPathAsync(string directoriesPath);
-        bool ExistsAsync(string directoriesPath);
+        IEnumerable<string> GetDirectoriesPath(string directoryPath);
+
+        IEnumerable<string> GetFilesPath(string directoryPath);
+
+        IEnumerable<StorageDirectory> GetDirectories(string directoryPath);
+
+        StorageDirectory GetByPathAsync(string directoryPath);
+
+        bool ExistsAsync(string directoryPath);
     }
 }

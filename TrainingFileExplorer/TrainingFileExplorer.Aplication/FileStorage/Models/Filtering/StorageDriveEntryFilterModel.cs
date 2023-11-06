@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TrainingFileExplorer.Aplication.FileStorage.Models.Filtering
 {
-    public class StorageFileFilterModel
+    public class StorageDriveEntryFilterModel
     {
-        public string DirectoryPath { get; set; } = string.Empty;
-        public ICollection<StorageFileType> FileTypes { get; set; } = default!;
+        public bool IncludeDirectories { get; set; }
+
+        public bool IncludeFiles { get; set; }
     }
 }

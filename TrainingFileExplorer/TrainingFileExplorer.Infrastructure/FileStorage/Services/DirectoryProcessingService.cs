@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TrainingFileExplorer.Aplication.FileStorage.Models.Filtering;
 using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
 using TrainingFileExplorer.Aplication.FileStorage.Services;
 
@@ -18,13 +14,17 @@ namespace TrainingFileExplorer.Infrastructure.FileStorage.Services
             _fileService = fileService;
         }
 
-        public async ValueTask<List<IStorageEntry>> GetEntriesAsync(string directoryPath)
+        public async ValueTask<List<IStorageEntry>> GetEntriesAsync(string directoryPath, StorageDirectoryEntryFilterModel filterModel)
         {
             var storageItems = new List<IStorageEntry>();
 
-            storageItems.AddRange(await _directoryService.GetDirectoriesAsync(directoryPath));
+            // filterModel.SetDynamicPagination(2);
 
-            storageItems.AddRange(await _fileService.GetFilesByPathAsync(_directoryService.GetFilesPath(directoryPath)));
+            if (filterModel.IncludeDirectories)
+                storageItems.AddRange(await _directoryService.GetDirectoriesAsync(directoryPath, filterModel));
+
+            if (filterModel.IncludeFiles)
+                storageItems.AddRange(await _fileService.GetFilesByPathAsync(_directoryService.GetFilesPath(directoryPath, filterModel)));
 
             return storageItems;
         }

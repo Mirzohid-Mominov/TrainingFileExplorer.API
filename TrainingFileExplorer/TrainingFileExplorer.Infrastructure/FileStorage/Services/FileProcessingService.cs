@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrainingFileExplorer.Aplication.Common.Models.Filtering;
 using TrainingFileExplorer.Aplication.FileStorage.Models.Filtering;
 using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
 using TrainingFileExplorer.Aplication.FileStorage.Services;
@@ -20,16 +21,23 @@ namespace TrainingFileExplorer.Infrastructure.FileStorage.Services
             _fileService = fileService;
         }
 
-        public async ValueTask<IList<StorageFile>> GetFilterAsync(StorageFileFilterModel filterModel)
+        public async ValueTask<IList<StorageFile>> GetByFilterAsync(StorageFileFilterModel filterModel)
         {
             var filteredFilesPath = _directoryService
-                .GetFilesPath(filterModel.DirectoryPath)
-                .Where(filesPath => filterModel.FileTypes.Contains(_fileService.GetFileType(filesPath)));
-
-            var files = await _fileService.GetFilesByPathAsync(filteredFilesPath);
-
-            return files;
+                .GetFilesPath(filterModel.DirectoryPath, filterModel)
+                .Where(filePath => filterModel.FileTypes.Contains(_fileService.GetFileType(filePath)));
         }
 
+        public async ValueTask<StorageFileFilterDataModel> GetFilterDataModelAsync(string directoryPath)
+        {
+            var pagination = new FilterPagination
+            {
+                PageSize = int.MaxValue,
+                PageToken = 1
+            };
+
+            var filesPath = _directoryService.GetFilesPath(directoryPath, pagination);
+            var files = 
+        }
     }
 }

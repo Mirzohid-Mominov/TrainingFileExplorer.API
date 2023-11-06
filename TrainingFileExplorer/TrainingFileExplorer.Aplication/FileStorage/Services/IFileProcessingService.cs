@@ -10,6 +10,8 @@ namespace TrainingFileExplorer.Aplication.FileStorage.Services
 {
     public interface IFileProcessingService
     {
-        ValueTask<IList<StorageFile>> GetFilterAsync(StorageFileFilterModel filterModel);
+        ValueTask<StorageFileFilterDataModel> GetFilterDataModelAsync(string directoryPath);
+
+        ValueTask<IList<StorageFile>> GetByFilterAsync(StorageFileFilterModel filterModel);
     }
 }
