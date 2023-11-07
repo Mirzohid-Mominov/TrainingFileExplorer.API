@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingFileExplorer.Aplication.FileStorage.Brokers;
-using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
+using TrainingFileExplorer.Application.FileStorage.Models.Storage;
 
 namespace TrainingFileExplorer.Infrastructure.FileStorage.Brokers
 {
@@ -17,16 +17,16 @@ namespace TrainingFileExplorer.Infrastructure.FileStorage.Brokers
         {
             _mapper = mapper;
         }
-        
-        public IEnumerable<string> GetDirectoriesPath(string directoriesPath) => Directory.EnumerateDirectories(directoriesPath);
-        
-        public IEnumerable<string> GetFilesPath(string directoriesPath) => Directory.EnumerateFiles(directoriesPath);
-        
-        public IEnumerable<StorageDirectory> GetDirectoriesAsync(string directoriesPath) => GetDirectoriesPath(directoriesPath)
-            .Select(path => _mapper.Map<StorageDirectory>(new DirectoryInfo(path)));
-        
+
+        public bool ExistsAsync(string directoryPath) => Directory.Exists(directoryPath);
+
         public StorageDirectory GetByPathAsync(string directoriesPath) => _mapper.Map<StorageDirectory>(new DirectoryInfo(directoriesPath));
 
-        public bool ExistsAsync(string directoriesPath) => Directory.Exists(directoriesPath);
+        public IEnumerable<StorageDirectory> GetDirectories(string directoryPath) => GetDirectoriesPath(directoryPath)
+            .Select(path => _mapper.Map<StorageDirectory>(new DirectoryInfo(path)));
+
+        public IEnumerable<string> GetDirectoriesPath(string directoryPath) => Directory.EnumerateDirectories(directoryPath);
+     
+        public IEnumerable<string> GetFilesPath(string directoryPath) => Directory.EnumerateFiles(directoryPath);
     }
 }

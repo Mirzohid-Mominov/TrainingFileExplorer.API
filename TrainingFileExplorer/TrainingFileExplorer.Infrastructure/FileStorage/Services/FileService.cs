@@ -7,11 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TrainingFileExplorer.Aplication.Common.Models.Filtering;
 using TrainingFileExplorer.Aplication.FileStorage.Brokers;
-using TrainingFileExplorer.Aplication.FileStorage.Models.Filtering;
-using TrainingFileExplorer.Aplication.FileStorage.Models.Settings;
-using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
-using TrainingFileExplorer.Aplication.FileStorage.Services;
-using TrainingFileExplorer.Infrastructure.FileStorage.Brokers;
+using TrainingFileExplorer.Application.FileStorage.Models.Filtering;
+using TrainingFileExplorer.Application.FileStorage.Models.Settings;
+using TrainingFileExplorer.Application.FileStorage.Models.Storage;
+using TrainingFileExplorer.Application.FileStorage.Services;
 
 namespace TrainingFileExplorer.Infrastructure.FileStorage.Services;
 
@@ -60,7 +59,9 @@ public class FileService : IFileService
     public StorageFileType GetFileType(string filePath)
     {
         var fileExtension = Path.GetExtension(filePath).TrimStart('.');
+
         var matchedFileType = _filterSettings.FileExtensions.FirstOrDefault(extension => extension.Extensions.Contains(fileExtension));
+
         return matchedFileType?.FileType ?? StorageFileType.Other;
     }
 }

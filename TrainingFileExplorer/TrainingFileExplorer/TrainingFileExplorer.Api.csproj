@@ -17,8 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrainingFileExplorer.Aplication\TrainingFileExplorer.Aplication.csproj" />
     <ProjectReference Include="..\TrainingFileExplorer.Infrastructure\TrainingFileExplorer.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
 
 </Project>

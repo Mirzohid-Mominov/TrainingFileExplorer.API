@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingFileExplorer.Aplication.FileStorage.Brokers;
-using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
-using TrainingFileExplorer.Aplication.FileStorage.Services;
+using TrainingFileExplorer.Application.FileStorage.Models.Storage;
+using TrainingFileExplorer.Application.FileStorage.Services;
 
 namespace TrainingFileExplorer.Infrastructure.FileStorage.Services
 {

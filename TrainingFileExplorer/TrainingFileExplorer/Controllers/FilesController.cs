@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TrainingFileExplorer.Aplication.FileStorage.Models.Filtering;
-using TrainingFileExplorer.Aplication.FileStorage.Services;
+using TrainingFileExplorer.Application.FileStorage.Models.Filtering;
+using TrainingFileExplorer.Application.FileStorage.Services;
 
 namespace TrainingFileExplorer.Api.Controllers
 {
@@ -20,13 +20,16 @@ namespace TrainingFileExplorer.Api.Controllers
         [HttpGet("root/files/filter")]
         public async ValueTask<IActionResult> GetFilesSummaryAsync()
         {
-            var data = await _fileProcessingService.Get
+            var data = await _fileProcessingService.GetFilterDataModelAsync(_hostEnvironment.WebRootPath);
+            return Ok(data);
         }
 
 
         [HttpGet("root/files/by-filter")]
-        public async ValueTask<IActionResult> GetFilesAsync([FromBody] StorageFileFilterModel filterModel)
+        public async ValueTask<IActionResult> GetFilesAsync([FromQuery] StorageFileFilterModel filterModel)
         {
+            filterModel.DirectoryPath = _hostEnvironment.WebRootPath;
+
             var files = await _fileProcessingService.GetByFilterAsync(filterModel);
 
             return files.Any() ? Ok(files) : NotFound(files);

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using TrainingFileExplorer.Aplication.FileStorage.Models.Storage;
-using TrainingFileExplorer.Aplication.FileStorage.Services;
+using Training.FileExplorer.Api.Models.Dtos;
+using TrainingFileExplorer.Application.FileStorage.Services;
 
 namespace TrainingFileExplorer.Api.Controllers
 {
@@ -20,7 +20,7 @@ namespace TrainingFileExplorer.Api.Controllers
         public async ValueTask<IActionResult> GetAsync([FromServices] IDriveService driveService)
         {
             var data = await driveService.GetAsync();
-            var result = _mapper.Map<IEnumerable<StorageDrive>>(data);  
+            var result = _mapper.Map<IEnumerable<StorageDriveDto>>(data);  
 
             return result.Any() ? Ok(result) : NoContent();
         }
